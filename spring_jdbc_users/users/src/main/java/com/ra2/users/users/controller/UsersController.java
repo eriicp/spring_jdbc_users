@@ -17,16 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ra2.users.users.model.Users;
 import com.ra2.users.users.repository.UsersRepository;
+import com.ra2.users.users.service.UserService;
 
 @RestController
 public class UsersController {
 
     @Autowired
-    private UsersRepository usersRepository;
+    UserService userService;
 
     @PostMapping("/api/users")
     public ResponseEntity<String> create(@RequestBody Users user) {        
-        int result = usersRepository.createUser(user);
+        int result = userService.createUser(user);
         if (result > 0) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuario creado correctamente");
         } else {
@@ -36,7 +37,7 @@ public class UsersController {
 
     @GetMapping("/api/users")
     public ResponseEntity<List<Users>> read() {
-        List<Users> users = usersRepository.findAllUsers();
+        List<Users> users = userService.findAllUsers();
         if (users.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
@@ -45,7 +46,7 @@ public class UsersController {
 
     @GetMapping("/api/users/{user_id}")
     public ResponseEntity<Users> readById(@PathVariable Long user_id) {
-        Users user = usersRepository.findUserById(user_id);
+        Users user = userService.findUserById(user_id);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
@@ -54,7 +55,7 @@ public class UsersController {
     
     @PutMapping("/api/users/{user_id}")
     public ResponseEntity<String> update(@PathVariable Long user_id, @RequestBody Users user) {    
-        int result = usersRepository.updateUser(user_id, user);
+        int result = userService.updateUser(user_id, user);
         if (result > 0) {
             return ResponseEntity.status(HttpStatus.OK).body("Usuario actualizado correctamente");
         } else {
@@ -64,7 +65,7 @@ public class UsersController {
 
     @PatchMapping("/api/users/{user_id}/name")
     public ResponseEntity<String> updateName(@PathVariable Long user_id, @RequestParam String nom) {
-        int result = usersRepository.updateUserName(user_id, nom);
+        int result = userService.updateUserName(user_id, nom);
         if (result > 0) {
             return ResponseEntity.status(HttpStatus.OK).body("Nombre actualizado correctamente");
         } else {
@@ -74,7 +75,7 @@ public class UsersController {
 
     @DeleteMapping("/api/users/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long user_id) {
-        int result = usersRepository.deleteUser(user_id);
+        int result = userService.deleteUser(user_id);
         if (result > 0) {
             return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado correctamente");
         } else {
