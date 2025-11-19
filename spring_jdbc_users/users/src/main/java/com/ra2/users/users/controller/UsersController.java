@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra2.users.users.model.Users;
-import com.ra2.users.users.repository.UsersRepository;
 import com.ra2.users.users.service.UserService;
 
 @RestController
@@ -81,5 +81,17 @@ public class UsersController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
+    }
+
+    @PostMapping("/api/users/{user_id}/image")
+    public ResponseEntity<String> addImageProfile(@PathVariable Long user_id, @RequestParam MultipartFile imagFile){
+        String image = userService.uploadImage(user_id, imagFile);
+        return ResponseEntity.status(HttpStatus.OK).body(image);
+    }
+
+    @PostMapping("/api/users/upload-csv")
+    public ResponseEntity<Integer> addCSV(@RequestParam MultipartFile csvFile){ 
+        int csv = userService.uploadCSV(csvFile);
+        return ResponseEntity.status(HttpStatus.OK).body(csv);
     }
 }

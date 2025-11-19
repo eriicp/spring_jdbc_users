@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import com.ra2.users.users.model.Users;
 
 @Repository
@@ -21,12 +20,13 @@ public class UsersRepository {
 
     // Crear un nuevo usuario
     public int createUser(Users user) {
-        String sql = "INSERT INTO users (name, description, email, password, dataCreated, dataUpdated) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (name, description, email, password, image_path, dataCreated, dataUpdated) VALUES (?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, 
             user.getName(), 
             user.getDescription(), 
             user.getEmail(), 
             user.getPassword(),
+            user.getImage_path(),
             LocalDateTime.now(),
             LocalDateTime.now());
     }
@@ -46,12 +46,13 @@ public class UsersRepository {
 
     // Actualizar usuario completo
     public int updateUser(Long id, Users user) {
-        String sql = "UPDATE users SET name = ?, description = ?, email = ?, password = ?, dataUpdated = ? WHERE id = ?";
+        String sql = "UPDATE users SET name = ?, description = ?, email = ?, password = ?, image_path = ?, dataUpdated = ? WHERE id = ?";
         return jdbcTemplate.update(sql, 
             user.getName(), 
             user.getDescription(), 
             user.getEmail(), 
             user.getPassword(),
+            user.getImage_path(),
             LocalDateTime.now(),
             id);
     }
@@ -80,8 +81,8 @@ public class UsersRepository {
             user.setDescription(rs.getString("description"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
+            user.setImage_path(rs.getString("image_path"));
             
-            // Mapear campos de timestamp con manejo de nulls
             Timestamp ultimAccesTimestamp = rs.getTimestamp("ultimAcces");
             if (ultimAccesTimestamp != null) {
                 user.setUltimAcces(ultimAccesTimestamp.toLocalDateTime());
@@ -100,4 +101,10 @@ public class UsersRepository {
             return user;
         }
     }
+
+    public int addImagePath(String imagFile, Long id) {
+        String sql = "UPDATE users SET image_path = ?, dataUpdated = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, imagFile, LocalDateTime.now(), id);
+    }
+    
 }

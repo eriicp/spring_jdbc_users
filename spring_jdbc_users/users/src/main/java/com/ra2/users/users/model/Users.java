@@ -9,11 +9,12 @@ public class Users {
     private String email;
     private String password;
     private LocalDateTime ultimAcces;
+    private String image_path;
     private LocalDateTime dataCreated;
     private LocalDateTime dataUpdated;
     
 
-    public Users(long id, String name, String description, String email, String password, LocalDateTime ultimAcces,
+    public Users(long id, String name, String description, String email, String password, LocalDateTime ultimAcces, String image_path,
             LocalDateTime dataCreated, LocalDateTime dataUpdated) {
         this.id = id;
         this.name = name;
@@ -21,6 +22,7 @@ public class Users {
         this.email = email;
         this.password = password;
         this.ultimAcces = ultimAcces;
+        this.image_path = image_path;
         this.dataCreated = dataCreated;
         this.dataUpdated = dataUpdated;
     }
@@ -74,6 +76,14 @@ public class Users {
     
     public void setUltimAcces(LocalDateTime ultimAcces) {
         this.ultimAcces = ultimAcces;
+    }
+
+    public String getImage_path(){
+        return image_path;
+    }
+
+    public void setImage_path(String image_path){
+        this.image_path = image_path;
     }
     
     public LocalDateTime getDataCreated() {
