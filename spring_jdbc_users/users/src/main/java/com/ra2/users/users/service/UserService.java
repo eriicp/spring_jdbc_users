@@ -5,16 +5,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ra2.users.users.model.UserBatchUpload;
 import com.ra2.users.users.model.Users;
+import com.ra2.users.users.model.data;
 import com.ra2.users.users.repository.UsersRepository;
 
 @Service
@@ -66,40 +74,80 @@ public class UserService {
             return "No existeix l'usuari";
         }
     }
-
-    public int uploadCSV(MultipartFile csvFile){
-        File fitxerCSV = new File(csvFile.getOriginalFilename());
-        try(BufferedReader br = new BufferedReader(new FileReader(fitxerCSV))) {
+    
+    public int uploadCSV(MultipartFile csvFile) {
+        int recompte = 0;
+        
+        try (InputStream inputStream = csvFile.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            
             String linia;
             int numeroLinia = 0;
-            int recompte = 0;
 
-            while ((linia = br.readLine()) != null){
+            while ((linia = br.readLine()) != null) {
                 numeroLinia++;
 
-                if (numeroLinia == 1){
-                    continue;
+                if (numeroLinia == 1) {
+                continue;
                 }
 
-                String[] dades =  linia.split(",");
-                Users user = new Users();
-                user.setName(dades[1]);
-                user.setDescription(dades[2]);
-                user.setEmail(dades[3]);
-                user.setPassword(dades[4]);
-                createUser(user);
-                recompte++;
+                String[] dades = linia.split(",");
+            
+                //Agafa tots els camps separats per comas
+                if (dades.length >= 5) {
+                    Users user = new Users();
+                    user.setName(dades[1]);
+                    user.setDescription(dades[2]);
+                    user.setEmail(dades[3]);
+                    user.setPassword(dades[4]);
+                    createUser(user);
+                    recompte++;
+                }
             }
 
-            Path FolderPath = Paths.get("src/main/resources/public/csv_processed");
-            Path filePath = FolderPath.resolve(csvFile.getOriginalFilename());
-            Files.createDirectories(FolderPath);
+            // Guardar el arxiu procesat 
+            Path folderPath = Paths.get("src/main/resources/public/csv_processed");
+            Path filePath = folderPath.resolve(csvFile.getOriginalFilename());
+            
+            Files.createDirectories(folderPath);
             Files.copy(csvFile.getInputStream(), filePath);
-
+            
             return recompte;
-        } catch(IOException e){
-            System.out.println("Error d'acces: " + e.getMessage());
+        
+        } catch (IOException e) {
+            System.out.println("Error procesando CSV: " + e.getMessage());
         }
         return -1;
+    }
+
+    public int uploadJSON(MultipartFile jsonFile) throws StreamReadException, DatabindException, IOException {
+        ObjectMapper mapper = new ObjectMapper(); 
+       
+        UserBatchUpload batchUpload = mapper.readValue(jsonFile.getInputStream(), UserBatchUpload.class);
+        data data = batchUpload.getData();
+
+        // Comprobar "OK"
+        if (!"OK".equals(data.getControl())) {
+            throw new IllegalArgumentException("El control no és 'OK'");
+        }
+
+        // Comprobar el count
+        if (data.getCount() != data.getUsers().size()) {
+            throw new IllegalArgumentException("El count no coincideix amb el nombre d'usuaris");
+        }
+
+        // Guardar cada usuari
+        int recompte = 0;
+        for (Users user : data.getUsers()) {
+            usersRepository.createUser(user);
+            recompte++;
+        }
+
+        // Guardar el arxiu
+        Path folderPath = Paths.get("src/main/resources/public/json_processed");
+        Path filePath = folderPath.resolve(jsonFile.getOriginalFilename());
+        Files.createDirectories(folderPath);
+        Files.copy(jsonFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        return recompte;
     }
 }

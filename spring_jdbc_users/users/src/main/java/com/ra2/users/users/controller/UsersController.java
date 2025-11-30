@@ -1,5 +1,6 @@
 package com.ra2.users.users.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.ra2.users.users.model.Users;
 import com.ra2.users.users.service.UserService;
 
@@ -94,4 +97,11 @@ public class UsersController {
         int csv = userService.uploadCSV(csvFile);
         return ResponseEntity.status(HttpStatus.OK).body(csv);
     }
+
+    @PostMapping("/api/users/upload-json")
+    public ResponseEntity<Integer> addJSON (@RequestParam MultipartFile jsonFile) throws StreamReadException, DatabindException, IOException {
+        int json = userService.uploadJSON(jsonFile);
+        return ResponseEntity.status(HttpStatus.OK).body(json);
+    }
+    
 }

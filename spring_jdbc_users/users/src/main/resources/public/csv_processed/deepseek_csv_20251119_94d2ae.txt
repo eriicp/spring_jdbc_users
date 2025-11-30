@@ -1,0 +1,11 @@
+id,name,description,email,password
+1,Anna García,"Desenvolupadora web amb 5 anys d'experiència en Java i Spring Boot",anna.garcia@example.com,Password123!
+2,Marc Rodríguez,"Administrador de sistemes i xarxes empresarials",marc.rodriguez@example.com,SecurePass456
+3,Laia Martínez,"Dissenyadora gràfica especialitzada en UI/UX",laia.martinez@example.com,LaiaPass789
+4,Jordi Fernández,"Enginyer de dades amb experiència en Big Data",jordi.fernandez@example.com,Jordi2024!
+5,Carla López,"Cap de projecte en desenvolupament d'aplicacions mòbils",carla.lopez@example.com,CarlaPass123
+6,David Sánchez,"Expert en ciberseguretat i auditoria de sistemes",david.sanchez@example.com,DavidSecure99
+7,Marta Pérez,"Consultora en transformació digital i cloud computing",marta.perez@example.com,MartaP@ssw0rd
+8,Alex Gómez,"Analista de dades i business intelligence",alex.gomez@example.com,AlexData123
+9,Clara Martín,"Marketing digital i gestió de xarxes socials",clara.martin@example.com,ClaraMarketing!
+10,Pau Jiménez,"DevOps engineer amb certificacions en AWS i Docker",pau.jimenez@example.com,PauDevOps456
