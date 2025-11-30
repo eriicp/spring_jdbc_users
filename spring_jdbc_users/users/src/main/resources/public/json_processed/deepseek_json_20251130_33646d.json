@@ -4,21 +4,21 @@
     "control": "OK",
     "users": [
       {
-        "name": "Anna Garcia",
+        "name": "Ana Garcia",
         "description": "Desenvolupadora frontend",
-        "email": "aa.garcia@example.com",
-        "password": "password123"
+        "email": "aa.arcia@example.com",
+        "password": "assword123"
       },
       {
-        "name": "Pere Lopez",
+        "name": "Per Lopez",
         "description": "Dissenyador UX/UI",
-        "email": "pere.lopez@example.com", 
+        "email": "per.opez@example.com", 
         "password": "password456"
       },
       {
-        "name": "Maria Rodriguez",
+        "name": "Mria Rodriguez",
         "description": "Administradora de sistemes",
-        "email": "maria.rodriguez@example.com",
+        "email": "mria.rodriguez@example.com",
         "password": "password789"
       }
     ]

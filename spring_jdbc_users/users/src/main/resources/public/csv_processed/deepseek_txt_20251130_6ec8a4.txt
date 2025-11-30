@@ -1,0 +1,11 @@
+id,name,description,email,password
+1,Anna Johnson,"Web developer with 5 years of experience in Java and Spring Boot",anna.johnson@example.com,Password123!
+2,Mark Smith,"Enterprise systems and network administrator",mark.smith@example.com,SecurePass456
+3,Laura Brown,"Graphic designer specialized in UI/UX",laura.brown@example.com,LauraPass789
+4,George Wilson,"Data engineer with experience in Big Data",george.wilson@example.com,George2024!
+5,Carla Davis,"Project lead in mobile application development",carla.davis@example.com,CarlaPass123
+6,David Miller,"Cybersecurity expert and systems auditor",david.miller@example.com,DavidSecure99
+7,Martha Taylor,"Digital transformation and cloud computing consultant",martha.taylor@example.com,MarthaP@ssw0rd
+8,Alex Anderson,"Data analyst and business intelligence",alex.anderson@example.com,AlexData123
+9,Clara Thomas,"Digital marketing and social media management",clara.thomas@example.com,ClaraMarketing!
+10,Paul Moore,"DevOps engineer with AWS and Docker certifications",paul.moore@example.com,PaulDevOps456
