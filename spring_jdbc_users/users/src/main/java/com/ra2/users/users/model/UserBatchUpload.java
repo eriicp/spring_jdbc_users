@@ -1,8 +1,8 @@
 package com.ra2.users.users.model;
 
 public class UserBatchUpload {
-    private data data;
+    private Data data;
     
-    public data getData() { return data; }
-    public void setData(data data) { this.data = data; }
+    public Data getData() { return data; }
+    public void setData(Data data) { this.data = data; }
 }

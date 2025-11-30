@@ -2,7 +2,7 @@ package com.ra2.users.users.model;
 
 import java.util.List;
 
-public class data {
+public class Data {
     private int count;
     private String control;
     private List<Users> users;

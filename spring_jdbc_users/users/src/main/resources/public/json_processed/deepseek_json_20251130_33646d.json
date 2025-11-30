@@ -1,0 +1,26 @@
+{
+  "data": {
+    "count": 3,
+    "control": "OK",
+    "users": [
+      {
+        "name": "Anna Garcia",
+        "description": "Desenvolupadora frontend",
+        "email": "aa.garcia@example.com",
+        "password": "password123"
+      },
+      {
+        "name": "Pere Lopez",
+        "description": "Dissenyador UX/UI",
+        "email": "pere.lopez@example.com", 
+        "password": "password456"
+      },
+      {
+        "name": "Maria Rodriguez",
+        "description": "Administradora de sistemes",
+        "email": "maria.rodriguez@example.com",
+        "password": "password789"
+      }
+    ]
+  }
+}

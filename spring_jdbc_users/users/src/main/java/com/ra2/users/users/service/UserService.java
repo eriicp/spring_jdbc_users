@@ -1,9 +1,6 @@
 package com.ra2.users.users.service;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,9 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ra2.users.users.model.Data;
 import com.ra2.users.users.model.UserBatchUpload;
 import com.ra2.users.users.model.Users;
-import com.ra2.users.users.model.data;
 import com.ra2.users.users.repository.UsersRepository;
 
 @Service
@@ -124,7 +121,7 @@ public class UserService {
         ObjectMapper mapper = new ObjectMapper(); 
        
         UserBatchUpload batchUpload = mapper.readValue(jsonFile.getInputStream(), UserBatchUpload.class);
-        data data = batchUpload.getData();
+        Data data = batchUpload.getData();
 
         // Comprobar "OK"
         if (!"OK".equals(data.getControl())) {
