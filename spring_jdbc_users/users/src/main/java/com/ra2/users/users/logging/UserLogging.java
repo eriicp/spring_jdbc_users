@@ -24,7 +24,7 @@ public class UserLogging {
     }
     
     public String obtenirFitxerAvui(){
-        String fitxerAvui = String.format("aplicacio-%s",LocalDate.now());
+        String fitxerAvui = String.format("logs/aplicacio-%s",LocalDate.now());
         return fitxerAvui;
     }
 
