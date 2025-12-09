@@ -16,11 +16,11 @@ public class UserLogging {
 
 
     public void info(String clase, String method, String descripcio){
-        escriureLog("info", clase, method, descripcio);
+        escriureLog("INFO", clase, method, descripcio);
     }
 
     public void error(String clase, String method, String descripcio){
-        escriureLog("error", clase, method, descripcio);
+        escriureLog("ERROR", clase, method, descripcio);
     }
     
     public String obtenirFitxerAvui(){

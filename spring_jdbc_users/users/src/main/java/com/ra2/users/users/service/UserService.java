@@ -27,7 +27,8 @@ public class UserService {
 
     @Autowired
     UsersRepository usersRepository;
-    UserLogging UserLogging;
+
+    private final UserLogging UserLogging = new UserLogging();
 
     public List<Users> findAllUsers(){
         try {
