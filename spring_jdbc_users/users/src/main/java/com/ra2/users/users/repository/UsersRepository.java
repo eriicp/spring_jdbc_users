@@ -41,7 +41,7 @@ public class UsersRepository {
     public Users findUserById(Long id) {
         String sql = "SELECT * FROM users WHERE id = ?";
         List<Users> users = jdbcTemplate.query(sql, new UserRowMapper(), id);
-        return users.isEmpty() ? null : users.get(0);
+        return users.isEmpty() ? null  : users.get(0);
     }
 
     // Actualizar usuario completo
